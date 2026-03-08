@@ -1,0 +1,22 @@
+Smart Shop Frequently Asked Questions
+
+Q: How do I create an account?
+A: Click "Sign Up" on our homepage and fill in your details. You can also sign up using your Google or Apple account.
+
+Q: How do I track my order?
+A: Go to "My Orders" in your account, or use the tracking number sent to your email.
+
+Q: What payment methods do you accept?
+A: We accept Visa, MasterCard, PayPal, Apple Pay, and Google Pay.
+
+Q: How do I become a VIP member?
+A: VIP membership is automatic based on your annual spending. Silver: $500+, Gold: $2000+, Diamond: $5000+.
+
+Q: What are the VIP discount rates?
+A: Silver members get 5% off, Gold members get 10% off, Diamond members get 15% off all purchases.
+
+Q: How do I change my shipping address?
+A: You can update your shipping address before the order is shipped. Go to "My Orders", select the order, and click "Edit Address".
+
+Q: Can I cancel my order?
+A: Orders can be cancelled before they are shipped. Once shipped, you'll need to wait for delivery and then request a return.

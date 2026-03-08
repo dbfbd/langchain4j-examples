@@ -22,6 +22,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import static dev.langchain4j.data.document.loader.FileSystemDocumentLoader.loadDocument;
 import static dev.langchain4j.model.openai.OpenAiChatModelName.GPT_4_O_MINI;
@@ -52,21 +54,24 @@ public class CustomerSupportAgentConfiguration {
         // 1. Create an in-memory embedding store
         EmbeddingStore<TextSegment> embeddingStore = new InMemoryEmbeddingStore<>();
 
-        // 2. Load an example document ("Miles of Smiles" terms of use)
-        Resource resource = resourceLoader.getResource("classpath:miles-of-smiles-terms-of-use.txt");
-        Document document = loadDocument(resource.getFile().toPath(), new TextDocumentParser());
+        // 2. Load Smart Shop knowledge documents
+        List<String> documentNames = Arrays.asList("refund-policy.txt", "shipping-policy.txt", "faq.txt");
 
-        // 3. Split the document into segments 100 tokens each
+        // 3. Split documents into segments 100 tokens each
         // 4. Convert segments into embeddings
         // 5. Store embeddings into embedding store
-        // All this can be done manually, but we will use EmbeddingStoreIngestor to automate this:
         DocumentSplitter documentSplitter = DocumentSplitters.recursive(100, 0, tokenizer);
         EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor.builder()
                 .documentSplitter(documentSplitter)
                 .embeddingModel(embeddingModel)
                 .embeddingStore(embeddingStore)
                 .build();
-        ingestor.ingest(document);
+
+        for (String docName : documentNames) {
+            Resource resource = resourceLoader.getResource("classpath:" + docName);
+            Document document = loadDocument(resource.getFile().toPath(), new TextDocumentParser());
+            ingestor.ingest(document);
+        }
 
         return embeddingStore;
     }
@@ -78,7 +83,7 @@ public class CustomerSupportAgentConfiguration {
         // which will depend on multiple factors, for example:
         // - The nature of your data
         // - The embedding model you are using
-        int maxResults = 1;
+        int maxResults = 2;
         double minScore = 0.6;
 
         return EmbeddingStoreContentRetriever.builder()
